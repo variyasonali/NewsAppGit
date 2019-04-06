@@ -1,85 +1,121 @@
-<!-- TOTAL SECTION dETAILS -->
-<div class="sectionDetail" *ngIf="!this.subsection1 ; else subsectionNews">
-  <div *ngFor="let news of sectionNewsResult">
-    <div *ngIf="news.multimedia[0]">
-      <!-- each section detail -->
-      
-        <mat-card class="example-card sectionDetails">
-          <mat-card-header class="header">
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>news</mat-card-title>
-            <mat-card-subtitle>on top</mat-card-subtitle>
-          </mat-card-header>
-          <img mat-card-4x-image class="image" src="{{news.multimedia[0].url}}" />
-          <mat-card-content class="descripation">
-            <span>{{news.title}}</span>
-          </mat-card-content>
-          <div class="Or">
-          <mat-card-actions class="footer">
-            <div *ngIf="news.multimedia[0].caption && news.multimedia[1].url ">
-              <button mat-button (click)="openDialog(news.multimedia[0].caption,news.multimedia[1].url)">READ MORE</button>
-            </div>
-          </mat-card-actions>
-        
-        <span class="read" (click)="openDialog(news.multimedia[0].caption,news.multimedia[1].url)" style="color: tomato">
-          <i class="fas fa-info-circle  informationIcon"></i>
-        </span>
-          </div>
-      </mat-card>
+<div class="container m-0" *ngIf="!this.subsection1; else subsectionNews">
+  <div class="card d-inline-block m-2" *ngFor="let news of sectionNewsResult" style="width: 12rem;height: 25rem;">
+    <div *ngIf="news.multimedia[0] ; else defaultImage" >
+        <img class="card-img-top img-thumbnail rounded img-fluid"
+        style="height:40%;"
+        src="{{ news.multimedia[1].url }}"
+        alt="Card image cap"/>
     </div>
+    <ng-template #defaultImage>
+        <img class="card-img-top img-thumbnail rounded img-fluid"
+        style="height:40%;"
+        src= "../../assets/images/images.png"
+        alt="Card image cap"/>
+    </ng-template>
+      <div class="card-body overflow-hidden" style="height:50%; ">
+          <h5 class="card-title text-center ">{{ news.title }}</h5>
+      </div>
+    <div class="card-footer text-muted text-center  pt-0" style="height:10%;">
+        <div   *ngIf="news.multimedia[0] ;else noMore">
+            <button class=" " mat-button (click)="openDialog(news.multimedia[1].caption, news.multimedia[1].url)">
+              READ MORE
+            </button>
+          </div>
+          <ng-template #noMore>
+            <button mat-button >
+              NO MORE DETAILS
+            </button>
+          </ng-template>
+    </div>
+
+
   </div>
 </div>
 
- 
 
-  <!-- <img class="image" src="{{news.multimedia[0].url}}" />
-          <span class="descripation">{{news.title}}</span>
-          <mat-card-content class="footer">
-            <div *ngIf="news.multimedia[0].caption && news.multimedia[1].url ">
-              <a (click)="openDialog(news.multimedia[0].caption,news.multimedia[1].url)">readMore</a>
+
+
+<!-- <button mat-button (click)="openDialog(news.multimedia[0].caption,news.multimedia[1].url)">READ
+                MORE</button>
             </div>
-          </mat-card-content>
-          <span class="read" (click)="openDialog(news.multimedia[0].caption,news.multimedia[1].url)" style="color: tomato">
+          </mat-card-actions>
+
+          <span class="read" (click)="openDialog(news.multimedia[0].caption,news.multimedia[1].url)"
+            style="color: tomato">
             <i class="fas fa-info-circle  informationIcon"></i>
           </span>
         </div>
+      </mat-card>
+    </div>
+  </div>
+</div> -->
+
+<!-- fliterd news -->
+<!-- <ng-template #subsectionNews>
+  <div class="sectionDetail" *ngFor="let news of sectionNewsResult">
+    <mat-card class="example-card sectionDetails" *ngIf="this.subsection1 === news.subsection && news.multimedia[0] && news.title !=''"> -->
+<!-- <div (onload)="doSomething()"> -->
+<!--
+      <img mat-card-4x-image class="image" src="{{news.multimedia[0].url}}" />
+      <mat-card-content class="descripation">
+        <span>{{news.title}}</span>
+      </mat-card-content>
+      <div class="Or">
+        <mat-card-actions class="footer">
+          <div *ngIf="news.multimedia[0].caption && news.multimedia[1].url ">
+            <button mat-button (click)="openDialog(news.multimedia[0].caption,news.multimedia[1].url)">READ
+              MORE</button>
+          </div> -->
+<!-- </mat-card-actions>
+        <span class="read" (click)="openDialog(news.multimedia[0].caption,news.multimedia[1].url)"
+          style="color: tomato">
+          <i class="fas fa-info-circle  informationIcon"></i>
+        </span>
+      </div>
+    </mat-card>
+  </div>
+</ng-template> -->
+
+<ng-template #subsectionNews>
+  <div class="container m-0">
+    <!-- <div  style="width: 12rem;height: 25rem;"  *ngIf="this.subsection1 === news.subsection && news.multimedia[0] && news.title !=''" > -->
+    <div class="d-inline-block" *ngFor="let news of sectionNewsResult" >
+      <div  class="d-inline-block" *ngIf="this.subsection1 === news.subsection && news.title != '' ">
+        <div   class="card d-inline-block m-2" style="width: 12rem;height: 25rem;" >
+        <div  *ngIf="news.multimedia[0]; else defaultImages">
+            <img class="card-img-top img-thumbnail rounded img-fluid"
+            style="height:30%;"
+            src="{{ news.multimedia[1].url }}"
+            alt="Card image cap"
+          />
+        </div>
+        <ng-template #defaultImages>
+            <img class="card-img-top img-thumbnail rounded img-fluid"
+            style="height:40%;"
+            src= "../../assets/images/images.png"
+            alt="Card image cap"/>
+        </ng-template>
+        <div class="card-body" style="height:50%; ">
+          <h5 class="card-title">{{ news.title }}</h5>
+        </div>
+        <div class="card-footer text-muted text-center  pt-0" style="height:10%;">
+        <div *ngIf="news.multimedia[0]; else noMoreDetails">
+            <button
+            class="mb-2"
+            mat-button>
+            READ MORE
+          </button>
+        </div>
+        <ng-template #noMoreDetails>
+            <button mat-button >
+              NO MORE DETAILS
+            </button>
+          </ng-template>
+        </div>
+      </div>
       </div>
     </div>
+  </div>
+</ng-template>
 
-  </div> -->
-  <!-- fliterd news -->
-  <ng-template #subsectionNews>
-
-    <div class="sectionDetail" *ngFor="let news of sectionNewsResult">
-
-      <mat-card class="example-card sectionDetails" *ngIf="this.subsection1 === news.subsection && news.multimedia[0] && news.title !=''">
-        <!-- <div (onload)="doSomething()"> -->
-            <mat-card-header class="header">
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>news</mat-card-title>
-                <mat-card-subtitle>on top</mat-card-subtitle>
-              </mat-card-header>
-              <img mat-card-4x-image class="image" src="{{news.multimedia[0].url}}" />
-              <mat-card-content class="descripation">
-                  <span>{{news.title}}</span>
-                </mat-card-content>
-        <div class="Or">
-            <mat-card-actions class="footer">
-                <div *ngIf="news.multimedia[0].caption && news.multimedia[1].url ">
-                  <button mat-button (click)="openDialog(news.multimedia[0].caption,news.multimedia[1].url)">READ MORE</button>
-                </div>
-              </mat-card-actions>
-           
-
-            <span class="read" (click)="openDialog(news.multimedia[0].caption,news.multimedia[1].url)" style="color: tomato">
-                <i class="fas fa-info-circle  informationIcon"></i>
-              </span>
-        </div>
-      </mat-card>
-        </div>
-     
-      </ng-template>
-    
-
-    <!-- <section-app [subSectionValue]=this.subsectionx></section-app> -->
- 
+<!-- <section-app [subSectionValue]=this.subsectionx></section-app> -->

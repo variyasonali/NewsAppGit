@@ -27,11 +27,13 @@ export class SectionDetailComponent implements OnInit {
   public sectionName: string;
   public subsection:string;
   public sectionNewsRaw: any;
+  public sectionNewsResultSection:any;
   public SectionNews: any;
   public  urlSegment:any;
   public subSectionretr: any;
   public sectionNewsResult:any;
   public sex:any;
+  public count:number;
   public subsection1:any;
   @Input() uniqueSubsections:string;
   @Input() subSectionretrx:any;
@@ -42,10 +44,11 @@ export class SectionDetailComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute, private _newsService: NewsService, public dialog:MatDialog,private router:Router) {
-
+    console.log('constructor of sectionDetail:' + new Date().toTimeString());
   }
   ngOnInit() {
     console.log(this.subsectionx);
+    console.log('ngonit of sectionDetail:' + new Date().toTimeString());
     // console.log(this.route.snapshot.url[2].path);
 
     
@@ -54,7 +57,9 @@ export class SectionDetailComponent implements OnInit {
     // this.sex= this.route.snapshot.paramMap.get('sectionName');
     // console.log(this.sex);
     // this.route.paramMap.subscribe(params => {
-     
+     console.log(this.route.snapshot.paramMap.getAll('sectionName'));
+     console.log(this.route.snapshot.paramMap.keys)
+     console.log(this.route.snapshot.paramMap.has('sectionName'));
     this.route.paramMap.subscribe(paramsroot =>{
       this.sectionName = paramsroot.get('sectionName');
       console.log(this.sectionName)
@@ -79,8 +84,10 @@ export class SectionDetailComponent implements OnInit {
         .subscribe(
           data => {
             this.sectionNewsRaw = data;
-            this.sectionNewsResult = this.sectionNewsRaw.results;
-            
+            this.sectionNewsResultSection = this.sectionNewsRaw.results.section;
+            this.sectionNewsResult=this.sectionNewsRaw.results;
+            this.count=this.sectionNewsRaw.num_results;
+           
             // console.log(this.sectionNewsRaw);
             // console.log(this.sectionNewsRaw.results);
             //console.log(this.sectionNewsRaw.results);

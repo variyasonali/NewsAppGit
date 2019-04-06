@@ -1,18 +1,17 @@
 .mainSidebar{
     display: grid;
-    
     grid-auto-rows: 25% auto;
     grid-auto-columns: 100%;
     grid-gap: 10px;
-   
     grid-template-areas: 
     "icons"
     "menu";
     div.icons{
         grid-area: icons;
-       
-       
         .mainIcon{
+            .pointer {
+                cursor: pointer;
+            }
            
            position: absolute;
            top:2%;
@@ -23,7 +22,7 @@
     }
     .menu{
         grid-area: menu;
-        text-transform: capitalize;
+       
         width: 100%;
 
        .sidebar{
@@ -31,7 +30,7 @@
         //    width: 100%;
 
            .btn-primary{
-            
+            text-transform: capitalize;
             width: 98%;
             // margin: 2%;
             }

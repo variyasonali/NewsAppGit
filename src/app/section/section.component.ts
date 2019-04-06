@@ -29,6 +29,7 @@ export class SectionComponent implements OnInit {
     console.log(this.subsection1);
   }
   onSelect(section){
+    console.log(section);
     this._NewsService.removeSubsection();
     this.router.navigate(['/section',  section.sectionName]);
     // remove(){}
